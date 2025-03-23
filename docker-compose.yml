@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--protected-mode", "no"]
+
+  graphql-server:
+    build: .
+    container_name: graphql_server
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      PORT: 4000
+      MONGO_URI: mongodb://admin:password@mongo:27017
+      REDIS_HOST: redis
+
+  data_importer:
+    build: .
+    container_name: data_importer
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URI: mongodb://admin:password@mongo:27017
+    command: ["node", "importToMongoDb.js"]
+    restart: "no"
+
+volumes:
+  mongo_data:

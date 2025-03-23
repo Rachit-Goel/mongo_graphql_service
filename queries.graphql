@@ -1,0 +1,125 @@
+# Queries
+query Query(
+  $customerId: ID!
+  $limit: Int!
+  $startDate: String!
+  $endDate: String!
+  $getCustomerOrdersCustomerId2: ID!
+  $getCustomerOrdersLimit2: Int!
+  $offset: Int!
+) {
+  getCustomers {
+    customers {
+      _id
+      name
+      email
+      age
+      location
+      gender
+    }
+    totalCount
+  }
+  getOrders {
+    orders {
+      _id
+      customerId
+      products {
+        productId
+        quantity
+        priceAtPurchase
+      }
+      totalAmount
+      orderDate
+      status
+    }
+    totalCount
+  }
+  getProducts {
+    products {
+      _id
+      name
+      category
+      price
+      stock
+    }
+    totalCount
+  }
+  getCustomerSpending(customerId: $customerId) {
+    customerId
+    totalSpent
+    averageOrderValue
+    lastOrderDate
+  }
+  getTopSellingProducts(limit: $limit) {
+    productId
+    name
+    totalSold
+  }
+  getSalesAnalytics(startDate: $startDate, endDate: $endDate) {
+    totalRevenue
+    completedOrders
+    categoryBreakdown {
+      category
+      revenue
+    }
+  }
+  getCustomerOrders(
+    customerId: $getCustomerOrdersCustomerId2
+    limit: $getCustomerOrdersLimit2
+    offset: $offset
+  ) {
+    orders {
+      _id
+      customerId
+      products {
+        productId
+        quantity
+        priceAtPurchase
+      }
+      totalAmount
+      orderDate
+      status
+    }
+    totalCount
+  }
+}
+
+# Mutation
+mutation Mutation($placeOrderCustomerId2: ID!, $products: [ProductOrderInput!]!) {
+  placeOrder(customerId: $placeOrderCustomerId2, products: $products) {
+    _id
+    customerId
+    products {
+      productId
+      quantity
+      priceAtPurchase
+    }
+    totalAmount
+    orderDate
+    status
+  }
+}
+
+# Variables
+{
+  "customerId": "67df22736d0ade9bf5156c17",
+  "limit": 20,
+  "startDate": "2024-10-01",
+  "endDate": "2025-03-01",
+  "getCustomerOrdersCustomerId2": "67df22736d0ade9bf5156c17",
+  "getCustomerOrdersLimit2": 10,
+  "offset": 0,
+  "placeOrderCustomerId2": "67df22736d0ade9bf5156c17",
+  "products": [
+    {
+      "productId": "67df22736d0ade9bf5156c2e",
+      "quantity": 1,
+      "priceAtPurchase": 228.67
+    },
+    {
+      "productId": "67df22736d0ade9bf5156c2f",
+      "quantity": 3,
+      "priceAtPurchase": 19.05
+    }
+  ]
+}

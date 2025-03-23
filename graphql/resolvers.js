@@ -170,6 +170,12 @@ const resolvers = {
           throw new Error("Invalid customer ID format.");
         }
 
+        // Check if customer exists
+        const customerExists = await Customer.findById(customerId);
+        if (!customerExists) {
+          throw new Error(`Customer with ID ${customerId} does not exist.`);
+        }
+        
         if (!Array.isArray(products) || products.length === 0) {
           throw new Error("Products array cannot be empty.");
         }

@@ -8,4 +8,8 @@ const OrderSchema = new mongoose.Schema({
   status: String,
 });
 
+OrderSchema.index({ customerId: 1, orderDate: -1 });
+OrderSchema.index({ orderDate: -1 });
+OrderSchema.index({ "products.productId": 1 });
+
 module.exports = mongoose.models.Order || mongoose.model("Order", OrderSchema);

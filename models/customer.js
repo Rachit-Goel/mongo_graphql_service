@@ -8,4 +8,6 @@ const CustomerSchema = new mongoose.Schema({
   gender: String,
 });
 
+CustomerSchema.index({ name: 1 });
+
 module.exports = mongoose.models.Customer || mongoose.model("Customer", CustomerSchema);

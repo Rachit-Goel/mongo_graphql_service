@@ -7,4 +7,6 @@ const ProductSchema = new mongoose.Schema({
   stock: Number,
 });
 
+ProductSchema.index({ category: 1 });
+
 module.exports = mongoose.models.Product || mongoose.model("Product", ProductSchema);

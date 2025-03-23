@@ -16,6 +16,11 @@ This project provides GraphQL API to analyze revenue, customer spending behavior
 
 ---
 
+## Demo Video
+[Demo Video Link](https://drive.google.com/file/d/101Mkfjb38R7AxrrN-iOet6mN0PWu2Ggo/view?usp=sharing)
+
+---
+
 ## Prerequisites
 Ensure you have the following installed:
 - for no manuall setup of MongoDB, Redis, one-time seed data import:
